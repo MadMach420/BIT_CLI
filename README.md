@@ -1,41 +1,35 @@
-# Rzeczy zrobione i do zrobienia
+# Instrukcja dla użytkownika końcowego
+
+## Instalacja krok po kroku
+- Otwórz stronę repozytorium BIT_CLI na Githubie i wejdź w zakładkę "Releases"
+  - Lub kliknij w link: https://github.com/aghbit/BIT_CLI/releases
+- Wybierz wersję dla swojego systemu operacyjnego
+  - np. dla Windowsa 64 bitowego wybierz win32-x64
+- Kliknij wybraną wersję i pobierz skompresowaną paczkę
+- Wypakuj zawartość paczki i zamknij ewentualne okienko z komunikatami diagnostycznymi
 
 
-## Zrobione:
-- komenda "runtest" z możliwością przetestowania pojedyńczego zadania, całego zestawu jak i całego workspace'u
-- flagi do komendy "runtest": -d (wyświetlanie w terminalu) i -f (forsowanie testu)
-- config.json - plik konfiguracyjny
-- komenda "runtest config" do edytownania i wyświetlania zawartości pliku config.json przez użytkownika
-- kopiowanie pliku użytkownika do prog.py
-- sprawdzanie daty edycji pliku użytkownika i porównywanie z datą ostatnio odpalonego testu
-- obsługa stdout pytest'a
-- zapis wyników testowania do klasy Task
-- zapis daty wykonania testu
-- zapis wyników do pliku .csv z opcjami headera jako pierwszej linijki i możliwością zapisu zgodnie z kolejnością zadań
-- wyświetlenie wyników w terminalu
+## Używanie komend. Jak wywołać komendę?
+- Przez terminal przejdź do podfolderu "bin" folderu "bit_cli", który właśnie wypakowałeś
+  - np. gdy wypakowałeś folder na Pulpicie przejdź do folderu C:/Users/Marek/Desktop/bit_cli/bin
+- każdą komendę poprzedź członem "bit_cli"
+  - np. chcąc wywołać komendę "runtest config -d" będąc już w folderze "bin", wpisz "bit_cli runtest config -d" w terminalu
+  
 
-Na tym etapie komenda docelowa działa i w pełni realizuje swoje zadanie odpalenia testów, zebrania wyników, zapisu do csv i wyświetlenia w terminalu
-
-
-## Do zrobienia:
-- dodatkowe flagi komendy runtest (nazwy są jedynie moją propozycją, mogą być inne)
-  - --skipNotExisting - podczas testowania pomija nieistniejące pliki użytkownika (domyślnie testuje wszystko co zostało przekazane w argumencie komendy, dla nieistniejącego pliku output taki sam jak dla istniejącego pliku z pustą funkcją)
+## Co muszę jeszcze skonfigurować?
+Przed rozpoczęciem pisania rozwiązań do zadań należy skonfigurować plik config.json poprzez komendę "runtest config". W szczególności:
+- ścieżkę bezwględną do projektu (folder gdzie znajdują się katalogi Workspace i WDI)
+  - np. "runtest config -p C:/Users/Marek/Desktop/Zadania"
+- ścieżkę bezwględną do pliku .csv gdzie zapisywane będą wyniki testów (dowolna lokacja)
+  - np. "runtest config --csvFileLocation C:/Users/Marek/Desktop/Zadania/output.csv"
+#### W razie wątpliwości zajrzyj do opisu komendy "runtest config" w sekcji poniżej. Inne flagi i możliwości konfiguracji opisane są poniżej
 
 
-# Poniżej informacje dla użytkownika końcowego
-# Struktura projektu
+##
+# Opis komend
 
 
-## Komenda "runtest"
-- bez flag testuje cały workspace
-- flaga '-s' określa zestaw do przetestowania
-  - np. "runtest -s 1"  przetestuje cały zestaw 1
-- flaga '-t' określa zadanie do przetestowania
-  - np. "runtest -s 1 -t 1"  przetestuje zadanie 1 zestawu 1
-- flaga '-d' powoduje wyświetlenie wyników testu w terminalu
-- flaga '-f' wymusza wykonanie testu niezależnie od tego, czy plik użytkownika był edytowany od czasu ostatniego testu
-
-## Komenda "runtest config":
+## Komenda "runtest config"
 ## UWAGA! Przeczytaj uwagę znajdującą się pod tą sekcją!
 - flaga '-p' ustawia ścieżkę bezwględną do projektu
   - np. "runtest config -p C:/Users/Marek/Desktop/Zadania"
@@ -49,14 +43,27 @@ Na tym etapie komenda docelowa działa i w pełni realizuje swoje zadanie odpale
   - np. "runtest config --no-csvSaveInOrder"
 - flaga '-d' powoduje wyświetlenie zawartości pliku cofig.json w terminalu
 
-## UWAGA! Komendy runtest config można używać tylko przed rozpoczęciem pisania jakichkolwiek rozwiązań, przed zaczęciem projektu. Zmienianie wartości pliku config.json w trakcie pisania rozwiązań, może spowodować wysypanie się programu i niepowrotną stratę postępu i wyników z .csv
+## UWAGA! Komendy "runtest config" można używać tylko przed rozpoczęciem pisania jakichkolwiek rozwiązań. Zmienianie wartości pliku config.json w trakcie pisania rozwiązań, może spowodować wysypanie się programu i niepowrotną stratę postępu i wyników z .csv
+
+
+## Komenda "runtest"
+- bez flag testuje cały workspace
+- flaga '-s' określa zestaw do przetestowania
+  - np. "runtest -s 1"  przetestuje cały zestaw 1
+- flaga '-t' określa zadanie do przetestowania
+  - np. "runtest -s 1 -t 1"  przetestuje zadanie 1 zestawu 1
+- flaga '-d' powoduje wyświetlenie wyników testu w terminalu
+- flaga '-f' wymusza wykonanie testu niezależnie od tego, czy plik użytkownika był edytowany od czasu ostatniego testu
+
+##
+# Struktura projektu
 
 ## W folderze projektu ( ścieżkę do niego ustawiamy za pomocą komendy "runtest config" ) muszą być zawarte foldery
 - Workspace - folder gdzie pracuje użytkownik
 - WDI - folder gdzie zawarte są rozwiązania zadań
 
 
-## Struktura folderu "Workspace":
+## Struktura folderu "Workspace"
 - Zestaw_1
   - t_01.py
   - t_02.py <- plik zawierający rozwiązanie UŻYTKOWNIKA do zadania 2 z zestawu 1
@@ -67,7 +74,7 @@ Na tym etapie komenda docelowa działa i w pełni realizuje swoje zadanie odpale
 - Zestaw_6
 
 
-## Struktura folderu "WDI" (taka sama jak w SummerProject2022):
+## Struktura folderu "WDI" (taka sama jak w SummerProject2022)
 - Zestaw_1
   - Zadanie_01
       - __init__.py 
